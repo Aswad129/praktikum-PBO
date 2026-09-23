@@ -27,7 +27,7 @@ Class `User` digunakan untuk menyimpan data pelanggan atau calon penghuni kost.
 ### Atribut Class
 
 ```python
-nama_sistem
+nama_aplikasi
 total_user
 status_sistem
 ```
@@ -131,7 +131,7 @@ Atribut `__harga` dibuat sebagai private attribute karena harga merupakan data y
 
 ### Method
 
-- `tampilkan_info()` → menampilkan informasi kamar.
+- `tampilkan_data()` → menampilkan informasi kamar.
 - `ubah_status()` → mengubah status kamar.
 - `dari_data()` → class method untuk membuat objek kamar.
 - `validasi_harga()` → static method untuk melakukan validasi harga.
@@ -151,7 +151,7 @@ Class `Pemesanan` digunakan untuk menyimpan data pemesanan kamar oleh user.
 ### Atribut Class
 
 ```python
-nama_sistem
+nama_aplikasi
 total_pemesanan
 status_default
 ```
@@ -197,7 +197,7 @@ Class `Pembayaran` digunakan untuk menyimpan data pembayaran dari pemesanan kama
 ### Atribut Class
 
 ```python
-nama_sistem
+nama_aplikasi
 total_pembayaran
 mata_uang
 ```
