@@ -83,8 +83,9 @@ class Penghuni(User):
 
 class Admin(User):
     def __init__(self, id_user, nama, username, password, hak_akses):
-        super.__init__(id_user, nama, username, password)
+        super().__init__(id_user, nama, username, password)
         self.hak_akses = hak_akses
+
 
         self.daftar_kamar = []
 
@@ -353,4 +354,209 @@ user2 = User(
 
 user1.tampilkan_data()
 user2.tampilkan_data()
+
+
+penghuni1 = Penghuni(
+    "P001",
+    "Siti Aminah",
+    "siti",
+    "siti123",
+    "K001"
+)
+
+penghuni2 = Penghuni(
+    "P002",
+    "Joko Widodo",
+    "joko",
+    "joko123",
+    "K002"
+)
+
+penghuni1.tampilkan_data()
+penghuni2.tampilkan_data()
+
+penghuni1.pesan_kamar()
+
+
+admin1 = Admin(
+    "A001",
+    "Budiono Siregar",
+    "Diono",
+    "diono123",
+    "Penuh"
+)
+
+admin1.tampilkan_data()
+admin1.kelola_kamar()
+
+
+admin2 = Admin(
+    "A002",
+    "Adi Putra",
+    "Putra",
+    "adi123",
+    "Penuh"
+)
+
+admin1.tampilkan_data() 
+admin2.tampilkan_data()
+
+admin1.kelola_kamar()
+
+kamar1 = Kamar(
+    "K001",
+    "101",
+    1500000,
+    ["AC", "Kamar Mandi Dalam", "Lemari"]
+)
+
+kamar2 = Kamar(
+    "K002",
+    "102",
+    1200000,
+    ["Kipas Angin", "Kamar Mandi Luar", "Lemari", "Meja Belajar"]
+) 
+
+kamar1.tampilkan_kamar()
+kamar2.tampilkan_kamar()
+
+
+penghuni1.kamar = kamar1
+penghuni2.kamar = kamar2
+
+
+print("\n===== Agregasi =====")
+
+admin1.tambah_kamar(kamar1)
+admin1.tambah_kamar(kamar2)
+
+admin1.tampilkan_daftar_kamar()
+
+pemesanan1 = Pemesanan(
+    "PM001",
+    penghuni1,
+    kamar1,
+    "2024-06-01"
+)
+
+pemesanan2 = Pemesanan(
+    "PM002",
+    penghuni2,
+    kamar2,
+    "2024-06-02"
+)
+
+pemesanan1.tampilkan_pemesanan()
+pemesanan2.tampilkan_pemesanan()
+
+print("\n===== Composition =====")
+
+pemesanan1.buat_pembayaran(
+    "B001",
+    "Transfer"
+)
+
+pemesanan2.buat_pembayaran(
+    "B002",
+    "Cash"
+)
+
+pemesanan1.pembayaran.tampilkan_pembayaran()
+pemesanan2.pembayaran.tampilkan_pembayaran()
+
+
+print("\n===== INSTANCE METHOD =====")
+
+kamar1.ubah_status("Terisi")
+kamar1.tampilkan_kamar()
+
+pemesanan1.konfirmasi()
+pemesanan1.tampilkan_pemesanan()
+
+pemesanan1.pembayaran.konfirmasi_pembayaran()
+pemesanan1.pembayaran.tampilkan_pembayaran()
+
+
+print("\n===== CLASS METHOD =====")
+
+data_kamar = {
+    "id_kamar": "K003",
+    "nomor": "B01",
+    "harga": 750000,
+    "fasilitas": "WiFi, Kasur",
+    "status": "Tersedia"
+}
+
+kamar3 = Kamar.dari_data(data_kamar)
+
+print("Object kamar berhasil dibuat melalui class method.")
+kamar3.tampilkan_kamar()
+
+
+data_user = {
+    "id_user": "U003",
+    "nama": "Citra",
+    "username": "citra",
+    "password": "citra123"
+}
+
+user3 = User.dari_data(data_user)
+
+print("\nObject user berhasil dibuat melalui class method.")
+user3.tampilkan_data()
+
+
+print("\n===== STATIC METHOD =====")
+
+print(
+    "Validasi harga Rp800000 :",
+    Kamar.validasi_harga(800000)
+)
+
+print(
+    "Validasi harga Rp0       :",
+    Kamar.validasi_harga(0)
+)
+
+print(
+    "Validasi username 'andi' :",
+    User.validasi_username("andi")
+)
+
+print(
+    "Validasi username ''     :",
+    User.validasi_username("")
+)
+
+print(
+    "Validasi tanggal 2026-10-06 :",
+    Pemesanan.validasi_tanggal("2026-10-06")
+)
+
+print(
+    "Validasi jumlah Rp500000 :",
+    Pembayaran.validasi_jumlah(500000)
+)
+
+print("\n===== GETTER =====")
+
+print(
+    "Password User :",
+    user1.password
+)
+
+print(
+    "Harga Kamar   :",
+    kamar1.harga
+)
+
+print(
+    "Status Pesanan:",
+    pemesanan1.status
+)
+
+print(
+    "Jumlah Bayar  :",
+    pemesanan1.pembayaran.jumlah
+)
 
