@@ -270,25 +270,6 @@ kamar1.harga = -500000
 
 ---
 
-# Panduan Pengujian
-
-Seluruh pengujian ada di bagian bawah file `main.py` dan berjalan berurutan:
-
-| No  | Bagian                     | Yang diuji                                                                             |
-| --- | -------------------------- | -------------------------------------------------------------------------------------- |
-| 1   | Bukti Abstraksi            | `User` tidak dapat diinstansiasi (`TypeError`)                                         |
-| 2   | Pembuatan Objek            | Minimal dua objek tiap class (`Penghuni`, `Admin`, `Kamar`, `Pemesanan`, `Pembayaran`) |
-| 3   | Polimorfisme via Pewarisan | Satu loop untuk objek `Penghuni` dan `Admin`                                           |
-| 4   | Agregasi                   | `admin1.tambah_kamar(...)` dan `tampilkan_daftar_kamar()`                              |
-| 5   | Asosiasi & Komposisi       | `Pemesanan` dengan `User`/`Kamar`, dan `buat_pembayaran()`                             |
-| 6   | Duck Typing                | `cetak_deskripsi()` untuk `Kamar`, `Pemesanan`, `Pembayaran`                           |
-| 7   | Operator Overloading       | `__str__`, `__lt__`, `__len__`, `__add__`                                              |
-| 8   | Instance Method            | `ubah_status()`, `konfirmasi()`, `konfirmasi_pembayaran()`                             |
-| 9   | Class Method               | `Penghuni.dari_data()`, `Kamar.dari_data()`                                            |
-| 10  | Static Method              | Validasi harga, username, tanggal, jumlah                                              |
-| 11  | Getter                     | Mengambil `password`, `harga`, `status`, `jumlah`                                      |
-| 12  | Setter                     | Data valid dan tidak valid (`ValueError`)                                              |
-
 # Screenshot Output Program
 
 Screenshot diambil dari hasil menjalankan `main.py` di terminal.
