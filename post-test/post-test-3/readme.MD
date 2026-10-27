@@ -23,81 +23,7 @@ Sistem Manajemen dan Pemesanan Kamar Kost
 
 # 1. Relasi UML (Class Diagram)
 
-![Class Diagram Sistem Kost](class.drawio.png)
-
-<details>
-<summary>Kode Mermaid class diagram (untuk draw.io / mermaid.live)</summary>
-
-```mermaid
-classDiagram
-    class User {
-        <<abstract>>
-        +id_user
-        +nama
-        #_username
-        -__password
-        #_status_akun
-        +tampilkan_data()*
-        +aksi_utama()*
-        +jalankan()
-        +validasi_username()$
-    }
-
-    class Penghuni {
-        +nomor_kamar
-        +kamar
-        +tampilkan_data()
-        +aksi_utama()
-        +pesan_kamar()
-    }
-
-    class Admin {
-        +hak_akses
-        +daftar_kamar
-        +tampilkan_data()
-        +aksi_utama()
-        +tambah_kamar(kamar)
-    }
-
-    class Kamar {
-        +id_kamar
-        +nomor_kamar
-        -__harga
-        +status
-        +ubah_status()
-        +deskripsi()
-    }
-
-    class Pemesanan {
-        +id_pemesanan
-        +user
-        +kamar
-        -__status
-        +pembayaran
-        +konfirmasi()
-        +buat_pembayaran()
-        +deskripsi()
-    }
-
-    class Pembayaran {
-        +id_pembayaran
-        +metode
-        -__jumlah
-        -__status
-        +konfirmasi_pembayaran()
-        +deskripsi()
-    }
-
-    User <|-- Penghuni
-    User <|-- Admin
-    Admin "1" o-- "0..*" Kamar : mengelola
-    Pemesanan "1" *-- "1" Pembayaran : memiliki
-    Pemesanan "*" --> "1" Kamar : memesan
-    Pemesanan "*" --> "1" User : dibuat oleh
-    Penghuni "0..1" --> "0..1" Kamar : menempati
-```
-
-</details>
+![Class Diagram Sistem Kost](png-folder/class.drawio.png)
 
 Diagram menampilkan nama class, atribut/method utama, dan garis relasi. Selain tiga relasi wajib, diagram juga menampilkan pewarisan (segitiga kosong) dari `User` ke `Penghuni` dan `Admin`.
 
@@ -124,7 +50,7 @@ class Admin(User):
         self.daftar_kamar = []
 
     def tambah_kamar(self, kamar):
-        self.daftar_kamar.append(kamar)   # kamar dibuat di luar Admin
+        self.daftar_kamar.append(kamar)
 ```
 
 ## Komposisi (belah ketupat penuh)
@@ -192,14 +118,6 @@ except TypeError as error:
     print("TypeError:", error)
 ```
 
-Output:
-
-```text
-TypeError: Can't instantiate abstract class User without an implementation for abstract methods 'aksi_utama', 'tampilkan_data'
-```
-
----
-
 # 3. Polimorfisme
 
 ## a. Polimorfisme via Pewarisan
@@ -213,25 +131,6 @@ for akun in daftar_akun:
     akun.jalankan()
 ```
 
-Output (dipersingkat):
-
-```text
-Selamat datang di Sistem Manajemen dan Pemesanan Kamar Kost
-Menjalankan aplikasi sebagai penghuni
-===== Data Penghuni =====
-ID Penghuni  : P001
-...
-Siti Aminah Dapat melakukan Pemesanan kamar kost
-
-Selamat datang di Sistem Manajemen dan Pemesanan Kamar Kost
-Menjalankan aplikasi sebagai admin
-====== Data Admin ======
-ID Admin     : A001
-...
-Hak Akses    : Penuh
-Budiono Siregar Sedang mengelola kamar kost
-```
-
 ## b. Duck Typing
 
 Class `Kamar`, `Pemesanan`, dan `Pembayaran` **tidak berhubungan lewat pewarisan**, tetapi sama-sama memiliki method `deskripsi()`. Ketiganya dipanggil lewat satu fungsi yang sama.
@@ -242,14 +141,6 @@ def cetak_ringkasan(objek):
 
 for objek in [kamar1, pemesanan1, pemesanan1.pembayaran]:
     cetak_ringkasan(objek)
-```
-
-Output:
-
-```text
-Kamar 101 Rp 1500000 Tersedia
-Pemesanan PM001 Siti Aminah Kamar 101 Menunggu
-Pembayaran B001 Rp 1500000 Transfer Belum Lunas
 ```
 
 ## c. Operator Overloading
@@ -267,16 +158,6 @@ print("__lt__  : kamar2 < kamar1 =", kamar2 < kamar1)
 print("sorted  :", [str(k) for k in sorted([kamar1, kamar2, kamar3])])
 print("__len__ : kamar dikelola admin1 =", len(admin1))
 print("__add__ : total pembayaran Rp", pemesanan1.pembayaran + pemesanan2.pembayaran)
-```
-
-Output:
-
-```text
-__str__ : Kamar 101 Rp 1500000
-__lt__  : kamar2 < kamar1 = True
-sorted  : ['Kamar B01 Rp 750000', 'Kamar 102 Rp 1200000', 'Kamar 101 Rp 1500000']
-__len__ : kamar dikelola admin1 = 2
-__add__ : total pembayaran Rp 2700000
 ```
 
 ## d. Tanpa Anti-Pattern
@@ -373,8 +254,8 @@ def harga(self, harga_baru):
 ```
 
 ```python
-kamar1.harga = 1600000    # diterima
-kamar1.harga = -500000    # ValueError: Harga harus lebih dari 0!
+kamar1.harga = 1600000
+kamar1.harga = -500000
 ```
 
 ---
@@ -408,60 +289,13 @@ Seluruh pengujian ada di bagian bawah file `main.py` dan berjalan berurutan:
 | 11  | Getter                     | Mengambil `password`, `harga`, `status`, `jumlah`                                      |
 | 12  | Setter                     | Data valid dan tidak valid (`ValueError`)                                              |
 
-Contoh output pengujian setter:
-
-```text
-Harga Kamar Berhasil di Ubah
-ValueError: Harga harus lebih dari 0!
-ValueError: Password harus minimal 6 karakter!
-```
-
----
-
 # Screenshot Output Program
 
 Screenshot diambil dari hasil menjalankan `main.py` di terminal.
 
-**1. Bukti abstract class `User` tidak dapat diinstansiasi**
-
-![Bukti Abstraksi](screenshot/01_abstraksi.png)
-
-**2. Polimorfisme via pewarisan (loop `Penghuni` dan `Admin`)**
-
-![Polimorfisme](screenshot/02_polimorfisme.png)
-
-**3. Agregasi, asosiasi, dan komposisi**
-
-![Relasi](screenshot/03_relasi.png)
-
-**4. Duck typing dan operator overloading**
-
-![Duck Typing dan Operator Overloading](screenshot/04_duck_typing_operator.png)
-
-**5. Getter dan setter**
-
-![Getter Setter](screenshot/05_getter_setter.png)
+![Getter Setter](png-folder/01.png)
+![Getter Setter](png-folder/02.png)
+![Getter Setter](png-folder/03.png)
+![Getter Setter](png-folder/04.png)
 
 ---
-
-# Cara Menjalankan
-
-Pastikan Python 3 sudah terpasang, lalu jalankan:
-
-```bash
-python main.py
-```
-
-File pada repository:
-
-```text
-├── main.py
-├── class_diagram.png
-├── README.md
-└── screenshot/
-    ├── 01_abstraksi.png
-    ├── 02_polimorfisme.png
-    ├── 03_relasi.png
-    ├── 04_duck_typing_operator.png
-    └── 05_getter_setter.png
-```
