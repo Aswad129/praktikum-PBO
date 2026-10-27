@@ -4,8 +4,6 @@
 
 Program ini menggambarkan proses pengelolaan kamar kost dan pemesanan kamar oleh penghuni. Terdapat dua jenis pengguna, yaitu **Penghuni** (yang memesan kamar) dan **Admin** (pemilik/pengelola kost). Keduanya merupakan turunan dari class abstrak **User**.
 
-Program dibuat dengan **Python** dan menerapkan konsep OOP: inheritance, abstraksi (ABC), polimorfisme, encapsulation, relasi antar class (asosiasi, agregasi, komposisi), serta instance/class/static method.
-
 ## Struktur Class
 
 Program terdiri dari 6 class:
@@ -25,7 +23,7 @@ Sistem Manajemen dan Pemesanan Kamar Kost
 
 # 1. Relasi UML (Class Diagram)
 
-![Class Diagram Sistem Kost](class_diagram.png)
+![Class Diagram Sistem Kost](class.drawio.png)
 
 <details>
 <summary>Kode Mermaid class diagram (untuk draw.io / mermaid.live)</summary>
